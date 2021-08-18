@@ -2,7 +2,9 @@
 require 'vendor/autoload.php';
 require './jsonToCsv.php';
 require './env.php';
-
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 class elastic_to_db_custom
 {
     public $csvFileObject;
@@ -30,7 +32,7 @@ class elastic_to_db_custom
     public function __construct()
     {
         if ($this->check_elastic_status()) {
-            echo "Elastic health is good. Now proceed to next step i.e check available indexs.";
+            echo "Elastic health is good. Now proceed to next step i.e check available indexs.<br>";
             if ($this->count_index_and_store_info()) {
 
                 // We have successfully recived the index and its data now get from elastic and insert in db step;
@@ -119,7 +121,7 @@ class elastic_to_db_custom
             "scroll" => "5m",
             "size" => 100,
             'index' => $index_name,
-            "_source_exclude"=>["@version","@timestamp"]
+            "_source_excludes"=>["@version","@timestamp"]
         );
         $client=$this->elastic_obj;
         $docs = $client->search($params);
@@ -176,7 +178,7 @@ class elastic_to_db_custom
                 fclose($fp);
                 // All done scrolling over data
                 echo $tablename;
-                echo "All done scrolling over data";
+                echo "<br>All done scrolling over data<br>";
                 break;
             }
         }
@@ -190,7 +192,7 @@ class elastic_to_db_custom
     {   echo 'index found via elastic_index_array<pre> ';
         print_r($this->elastic_index_array);
         echo '</pre>';
-        exit;
+        
         foreach ($this->elastic_index_array as $key => $value) {
            $othertables= ['custom_blogs_tag','custom_blogs_tag_relation','custom_blogs_tag_relation','custom_blogs'];
            $blogtables= ['custom_tag_category','custom_portfolio','custom_carrier_post','custom_portfolio_category','custom_portfolio_technologies_rel','custom_portfolio_category_rel','custom_team'];
@@ -200,7 +202,7 @@ class elastic_to_db_custom
                 
                 
                 $param['index'] = $key;
-                $param['_source_exclude'] = ["@version","@timestamp"];
+                $param['_source_excludes'] = ["@version","@timestamp"];
                 $param['size'] = 2;
                 $current_index_result = $this->elastic_obj->search($param);
                 echo '<pre> number of '.$key;
@@ -266,10 +268,12 @@ class elastic_to_db_custom
     * Store data to DB
     */
     private function insert_csv_in_db($tablename){
-        echo $tablename;
-        // echo "<br>";
-        $folder= home_url('/ForSql_importCSV/');
-        // echo $folder;
+        echo '<br>'.$tablename;
+        echo "<br>";
+        $folder= $this->home_url('/ForSql_importCSV/');
+        
+         echo $folder;
+         
         $sqlquery="LOAD DATA LOCAL INFILE '".$folder.$tablename.".csv'
                                     INTO TABLE ".$tablename."
                                     FIELDS TERMINATED BY ','
@@ -293,8 +297,8 @@ class elastic_to_db_custom
         jsonToCsv($source_data,"./ForSql_importCSV/".$tablename.".csv");
         echo $tablename;
         echo "<br>";
-        $folder= home_url('/ForSql_importCSV/');
-        echo $folder;
+        $folder= $this->home_url('/ForSql_importCSV/');
+        // echo $folder;
         exit;
         $sqlquery="LOAD DATA LOCAL INFILE '".$folder.$tablename.".csv'
                                     INTO TABLE ".$tablename."
@@ -306,6 +310,7 @@ class elastic_to_db_custom
                                     echo $sqlquery;
                                     
         $this->pdo_conn->exec($sqlquery);
+        
         // $sqlquery="LOAD DATA LOCAL INFILE 'http://localhost/oodlestech-wp/oodlestechnology/csvFile.csv' INTO TABLE custom_blogs FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' IGNORE 1 ROWS";
         // $this->pdo_conn->exec($drop_sql_table);
         
@@ -354,6 +359,18 @@ class elastic_to_db_custom
         //Save string to log, use FILE_APPEND to append.
         file_put_contents(get_template_directory() . '/custom/log/elastic_sync.log', $log, FILE_APPEND);
     }
+  
+    public static function home_url($p){ 
+        if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')   {
+    $url = "https://";   }else  {
+    $url = "http://";   }
+// Append the host(domain name, ip) to the URL.   
+$url.= $_SERVER['HTTP_HOST'];   
+
+// Append the requested resource location to the URL   
+$url.= $_SERVER['REQUEST_URI'];    
+ 
+return $url.$p;  }
 }
 
 try {
@@ -365,4 +382,6 @@ try {
     
     elastic_to_db_custom::generate_log($e);
 }
+// SET GLOBAL local_infile=1;
+// show global variables like 'local_infile';
 ?>
