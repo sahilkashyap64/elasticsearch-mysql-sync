@@ -1,0 +1,13 @@
+{
+    "name": "sahil/elasticsearch-sync-mysql",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Sahil Kashyap",
+            "email": "sahilkashyap64@gmail.com"
+        }
+    ],
+    "require": {
+        "elasticsearch/elasticsearch": "^7.14"
+    }
+}
