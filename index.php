@@ -296,7 +296,7 @@ class elastic_to_db_custom
             return;
         }
         $tablename= $data['hits']['hits'][0]['_index'];
-        $dynamic_sql = array();
+        
         $source_data = array_pluck( $data['hits']['hits'], '_source' );
         jsonToCsv($source_data,"./ForSql_importCSV/".$tablename.".csv");
         echo $tablename;
@@ -315,8 +315,6 @@ class elastic_to_db_custom
                                     
         $this->pdo_conn->exec($sqlquery);
         
-        // $sqlquery="LOAD DATA LOCAL INFILE 'http://localhost/oodlestech-wp/oodlestechnology/csvFile.csv' INTO TABLE custom_blogs FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' IGNORE 1 ROWS";
-        // $this->pdo_conn->exec($drop_sql_table);
         
     }
 
