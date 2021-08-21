@@ -2,7 +2,7 @@
 require 'vendor/autoload.php';
 require './jsonToCsv.php';
 require './env.php';
-// ini_set('display_errors', 1);
+ini_set('display_errors', 1);
 // ini_set('display_startup_errors', 1);
 // error_reporting(E_ALL);
 class elastic_to_db_custom
@@ -142,6 +142,7 @@ class elastic_to_db_custom
         jsonToCsv($source_data,$this->csvFileObject);
         // echo $tablename;
         // exit;
+        $fp = fopen($this->csvFileObject, 'a');
         while (\true) {
             $response = $client->scroll(
                 array(
@@ -149,7 +150,7 @@ class elastic_to_db_custom
                     "scroll" => "5m"
                 )
             );
-        
+            
             if (count($response['hits']['hits']) > 0) {
                 // echo "Do Work Here";
                 // echo "<pre>";
@@ -175,6 +176,7 @@ class elastic_to_db_custom
                 
                 $scroll_id = $response['_scroll_id'];
             } else {
+
                 fclose($fp);
                 // All done scrolling over data
                 echo $tablename;
@@ -194,9 +196,11 @@ class elastic_to_db_custom
         echo '</pre>';
         
         foreach ($this->elastic_index_array as $key => $value) {
-           $othertables= ['custom_blogs_tag','custom_blogs_tag_relation','custom_blogs_tag_relation','custom_blogs'];
-           $blogtables= ['custom_tag_category','custom_portfolio','custom_carrier_post','custom_portfolio_category','custom_portfolio_technologies_rel','custom_portfolio_category_rel','custom_team'];
-           $othertableBool=in_array($key, $othertables);
+            $othertables=[];
+        //    $othertables= ['custom_blogs_tag','custom_blogs_tag_relation','custom_blogs_tag_relation','custom_blogs'];
+        //    $blogtables= ['custom_tag_category','custom_portfolio','custom_carrier_post','custom_portfolio_category','custom_portfolio_technologies_rel','custom_portfolio_category_rel','custom_team'];
+           $blogtables= ['custom_carrier_post'];
+           $othertableBool=in_array($key, $othertables)??false;
            $blogtablesBool=in_array($key, $blogtables);
            if ($value['health'] == 'yellow' && $value['status'] == 'open' && $value['total'] !=0 && $othertableBool||$blogtablesBool) {
                 
@@ -299,7 +303,7 @@ class elastic_to_db_custom
         echo "<br>";
         $folder= $this->home_url('/ForSql_importCSV/');
         // echo $folder;
-        exit;
+        // exit;
         $sqlquery="LOAD DATA LOCAL INFILE '".$folder.$tablename.".csv'
                                     INTO TABLE ".$tablename."
                                     FIELDS TERMINATED BY ','
