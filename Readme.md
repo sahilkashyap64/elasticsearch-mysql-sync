@@ -20,3 +20,5 @@ Basic method of
  -fetch_the_es_data_with_scroll_dump_csv : Get data using ES scroll api and save it     to csv
 
  -insert_csv_in_db : Data from csv to mysql   
+
+ [Blog](https://dev.to/sahilkashyap64/sync-es-data-with-your-mysql-db-l5b)
