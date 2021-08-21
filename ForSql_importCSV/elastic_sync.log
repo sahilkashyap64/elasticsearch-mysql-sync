@@ -1,0 +1,36 @@
+User: 127.0.0.1 - August 21, 2021, 12:34 pm
+Reason :PDOException: SQLSTATE[42000]: Syntax error or access violation: 3948 Loading local data is disabled; this must be enabled on both the client and server sides in /home/sahil/Desktop/selfstudy/elasticsearchSyncMYSQL/index.php:286
+Stack trace:
+#0 /home/sahil/Desktop/selfstudy/elasticsearchSyncMYSQL/index.php(286): PDO->exec()
+#1 /home/sahil/Desktop/selfstudy/elasticsearchSyncMYSQL/index.php(250): elastic_to_db_custom->insert_csv_in_db()
+#2 /home/sahil/Desktop/selfstudy/elasticsearchSyncMYSQL/index.php(47): elastic_to_db_custom->fetch_from_elastic_put_in_db()
+#3 /home/sahil/Desktop/selfstudy/elasticsearchSyncMYSQL/index.php(377): elastic_to_db_custom->__construct()
+#4 {main} 
+-------------------------
+User: 127.0.0.1 - August 21, 2021, 12:34 pm
+Reason :PDOException: SQLSTATE[42000]: Syntax error or access violation: 3948 Loading local data is disabled; this must be enabled on both the client and server sides in /home/sahil/Desktop/selfstudy/elasticsearchSyncMYSQL/index.php:286
+Stack trace:
+#0 /home/sahil/Desktop/selfstudy/elasticsearchSyncMYSQL/index.php(286): PDO->exec()
+#1 /home/sahil/Desktop/selfstudy/elasticsearchSyncMYSQL/index.php(250): elastic_to_db_custom->insert_csv_in_db()
+#2 /home/sahil/Desktop/selfstudy/elasticsearchSyncMYSQL/index.php(47): elastic_to_db_custom->fetch_from_elastic_put_in_db()
+#3 /home/sahil/Desktop/selfstudy/elasticsearchSyncMYSQL/index.php(377): elastic_to_db_custom->__construct()
+#4 {main} 
+-------------------------
+User: 127.0.0.1 - August 21, 2021, 12:40 pm
+Reason :PDOException: SQLSTATE[08S01]: Communication link failure: 1159 Got timeout reading communication packets in /home/sahil/Desktop/selfstudy/elasticsearchSyncMYSQL/index.php:286
+Stack trace:
+#0 /home/sahil/Desktop/selfstudy/elasticsearchSyncMYSQL/index.php(286): PDO->exec()
+#1 /home/sahil/Desktop/selfstudy/elasticsearchSyncMYSQL/index.php(250): elastic_to_db_custom->insert_csv_in_db()
+#2 /home/sahil/Desktop/selfstudy/elasticsearchSyncMYSQL/index.php(47): elastic_to_db_custom->fetch_from_elastic_put_in_db()
+#3 /home/sahil/Desktop/selfstudy/elasticsearchSyncMYSQL/index.php(377): elastic_to_db_custom->__construct()
+#4 {main} 
+-------------------------
+User: 127.0.0.1 - August 21, 2021, 12:41 pm
+Reason :PDOException: SQLSTATE[08S01]: Communication link failure: 1159 Got timeout reading communication packets in /home/sahil/Desktop/selfstudy/elasticsearchSyncMYSQL/index.php:286
+Stack trace:
+#0 /home/sahil/Desktop/selfstudy/elasticsearchSyncMYSQL/index.php(286): PDO->exec()
+#1 /home/sahil/Desktop/selfstudy/elasticsearchSyncMYSQL/index.php(250): elastic_to_db_custom->insert_csv_in_db()
+#2 /home/sahil/Desktop/selfstudy/elasticsearchSyncMYSQL/index.php(47): elastic_to_db_custom->fetch_from_elastic_put_in_db()
+#3 /home/sahil/Desktop/selfstudy/elasticsearchSyncMYSQL/index.php(377): elastic_to_db_custom->__construct()
+#4 {main} 
+-------------------------
