@@ -357,7 +357,7 @@ class elastic_to_db_custom
                 "Reason :" . $param ." ". PHP_EOL.
                 "-------------------------".PHP_EOL;
         //Save string to log, use FILE_APPEND to append.
-        file_put_contents(get_template_directory() . '/custom/log/elastic_sync.log', $log, FILE_APPEND);
+        file_put_contents( 'ForSql_importCSV/elastic_sync.log', $log, FILE_APPEND);
     }
   
     public static function home_url($p){ 
