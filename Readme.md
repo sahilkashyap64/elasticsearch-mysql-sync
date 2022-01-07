@@ -5,7 +5,7 @@ it use scroll api to fetch all data and store it in scv file and then import it 
 index.php contains these methods
 
 Basic method of 
-1)ES connection and SQl connection
+1) ES connection and SQl connection
   - check_elastic_status
   - count_index_and_store_info
   - elasticsearch_include_its_library_prepare_obj
